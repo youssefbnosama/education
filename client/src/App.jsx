@@ -6,6 +6,7 @@ import { Profile } from "./routes/Profile";
 import { Account } from "./routes/Account";
 import { Dashboard } from "./routes/dashboard/Dashboard";
 import { AddCourse } from "./routes/dashboard/AddCourse";
+import {ShowCourses} from "./routes/courses/showCourses";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/addcourse" element={<AddCourse />} />
+        <Route path="/courses/:sec" element={<ShowCourses />} />
       </Routes>
     </Router>
   );

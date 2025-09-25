@@ -4,11 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Sidebar } from "./Sidebar";
 
 export function Profile() {
   const [user, setUser] = useState({});
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:5000/api/profile", {
@@ -20,7 +21,7 @@ export function Profile() {
       .then((e) => setUser(e));
   }, []);
 
-  const navigations = ["account","courses","explore","grades"]
+  const navigations = ["account", "courses", "explore", "grades"];
   return (
     <div className="relative flex min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden">
       {/* Animated background circles */}
@@ -43,36 +44,7 @@ export function Profile() {
         className="absolute top-1/3 left-1/4 w-20 h-20 rounded-full bg-secondary/20"
       />
 
-      {/* Sidebar */}
-      <motion.aside
-        initial={{ x: -120, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="w-64 p-4 relative z-10"
-      >
-        <Card className="h-full shadow-xl bg-gradient-to-b from-indigo-600 to-purple-600 text-white rounded-2xl">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold">Menu</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4 text-lg">
-              {["Your Account", "Courses", "Explore", "Grades"].map(
-                (item, idx) => (
-                  <motion.li
-                    key={idx}
-                    whileHover={{ x: 6 }}
-                    className="cursor-pointer hover:text-primary transition"
-                    onClick={()=>{ navigate(`/${navigations[idx]}`)}}
-                  >
-                    {item}
-                  </motion.li>
-                )
-              )}
-            </ul>
-          </CardContent>
-        </Card>
-      </motion.aside>
-
+      {<Sidebar />}
       {/* Main content */}
       <main className="flex-1 p-8 relative z-10">
         {/* User info */}
@@ -150,7 +122,12 @@ export function Profile() {
                   You haven’t enrolled in any courses. Start exploring and
                   unlock your learning journey!
                 </p>
-                <Button onClick = {()=>{navigate(`/explore/${user.grade}`)}} className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                <Button
+                  onClick={() => {
+                    navigate(`/courses/${user.grade}`);
+                  }}
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white"
+                >
                   Explore Courses
                 </Button>
               </motion.div>

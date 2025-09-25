@@ -17,8 +17,18 @@ import {
   validateCourseTitle,
 } from "./dashboardValidation";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function AddCourse() {
+  let errorState = {
+    title: "",
+    description: "",
+    grade: "",
+    price: "",
+    image: "",
+    fetch: "",
+  };
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -26,17 +36,10 @@ export function AddCourse() {
     price: "",
     image: "",
   });
-  const [errors, setErrors] = useState({
-    title: "",
-    description: "",
-    grade: "",
-    price: "",
-    image: "",
-    fetch: "",
-  });
+  const [errors, setErrors] = useState(errorState);
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
-    setErrors("")
+    setErrors(errorState);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +48,6 @@ export function AddCourse() {
     let priceError = validateCoursePrice(form.price);
     let imageError = validateCourseImage(form.image);
     let gradeError = validateCourseGrade(form.grade);
-    console.log(errors);
     if (titleError) {
       setErrors({ ...errors, title: titleError });
       return;
@@ -60,8 +62,24 @@ export function AddCourse() {
       return;
     } else if (gradeError) {
       setErrors({ ...errors, grade: gradeError });
+      console.log(gradeError)
       return;
     }
+    let data = { ...form };
+    console.log(data);
+    let res = await fetch("http://localhost:5000/api/addcourse", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+    let result = await res.json();
+    if (!res.ok) {
+      setErrors({ ...errors, fetch: result.message });
+      console.log(result.message);
+      return;
+    }
+    navigate("/dashboard");
   };
   return (
     <section className="min-h-screen bg-gradient-to-br from-indigo-50 to-white py-12 px-6 flex justify-center items-center relative overflow-hidden">
@@ -74,6 +92,7 @@ export function AddCourse() {
         <h2 className="text-2xl font-bold text-indigo-700 mb-6 text-center">
           Add a New Course
         </h2>
+        {errors.fetch && <p className="text-red-500 text-sm">{errors.fetch}</p>}
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Course Title */}
           <div>
@@ -158,9 +177,9 @@ export function AddCourse() {
                 <SelectValue placeholder="Select grade" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Sec-1">Sec-1</SelectItem>
-                <SelectItem value="Sec-2">Sec-2</SelectItem>
-                <SelectItem value="Sec-3">Sec-3</SelectItem>
+                <SelectItem value="sec-1">Sec-1</SelectItem>
+                <SelectItem value="sec-2">Sec-2</SelectItem>
+                <SelectItem value="sec-3">Sec-3</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -38,7 +38,7 @@ export const validateCourseGrade = (grade) => {
   if (!grade) {
     return "You must choose a grade.";
   }
-  if (!["Sec-1", "Sec-2", "Sec-3"].includes(grade.toString())) {
+  if (!["sec-1", "sec-2", "sec-3"].includes(grade)) {
     return "Invalid grade selection.";
   }
   return "";

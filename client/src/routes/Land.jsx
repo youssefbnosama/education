@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Button } from "../components/ui/button";
 import {
   Card,
@@ -11,7 +12,6 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export function Land() {
-
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/login");
@@ -20,6 +20,26 @@ export function Land() {
   const handleSignup = () => {
     navigate("/signup");
   };
+
+  useEffect(() => {
+    let fun = async () => {
+      try {
+        let res = await fetch("http://localhost:5000/api/profile", {
+          method: "GET",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        })
+          let result = await res.json()
+        if (result.username) {
+          console.log("hello");
+          navigate("/profile");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fun();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-accent/10 flex items-center justify-center p-4">

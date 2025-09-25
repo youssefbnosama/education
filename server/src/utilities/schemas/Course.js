@@ -31,10 +31,14 @@ const courseSchema = new mongoose.Schema(
       min: [0, "Price cannot be negative"],
     },
     grade: {
-      type: Number,
+      type: String,
       required: [true, "Grade is required"],
-      enum: ["Sec-1","Sec-2","Sec-3"], // حسب الفورم بتاعك
+      enum: ["sec-1","sec-2","sec-3"], // حسب الفورم بتاعك
     },
+    weeks:{
+      type:Array,
+      default:[]
+    }
   },
   { timestamps: true }
 );

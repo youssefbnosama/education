@@ -186,9 +186,9 @@ export function Signup() {
                     <SelectValue placeholder="Select your grade" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Sec-1">Sec-1</SelectItem>
-                    <SelectItem value="Sec-2">Sec-2</SelectItem>
-                    <SelectItem value="Sec-3">Sec-3</SelectItem>
+                    <SelectItem value="sec-1">Sec-1</SelectItem>
+                    <SelectItem value="sec-2">Sec-2</SelectItem>
+                    <SelectItem value="sec-3">Sec-3</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

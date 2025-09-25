@@ -8,7 +8,9 @@ import mongoose from "mongoose";
 import errorHandler from "./src/errorHandling/errorHandlerMiddleware.js";
 
 import form from "./src/routes/form/form.js";
-import profile from "./src/routes/profile/main.js"
+import profile from "./src/routes/profile/main.js";
+import dashboard from "./src/routes/dashboard/main.js";
+import courses from "./src/routes/courses/main.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,11 +18,11 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-dotenv.config()
+dotenv.config();
 app.use(
   cors({
     origin: "http://localhost:5173",
-    credentials: true, 
+    credentials: true,
   })
 );
 
@@ -40,6 +42,9 @@ app.get("/", (req, res) => {
 });
 app.use(form);
 app.use(profile);
+app.use(dashboard);
+app.use(courses);
+
 app.use(errorHandler);
 // Start the server
 app.listen(PORT, () => {
