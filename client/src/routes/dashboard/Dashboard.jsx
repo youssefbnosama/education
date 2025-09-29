@@ -20,9 +20,9 @@ export  function Dashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl mx-auto">
         {[
           { label: "Add a course" , navigation:"addcourse"},
-          { label: "Add to a course" , navigation:"addtocourse"},
           { label: "Delete a course" , navigation:"deletecourse"},
-          { label: "Change a course" , navigation:"changecourse"},
+          { label: "Add  a week" , navigation:"addweek/courses"},
+          { label: "modify a week" , navigation:"modifyweek"},
         ].map((item, index) => (
           <motion.div
             key={index}

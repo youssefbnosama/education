@@ -5,23 +5,50 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
+import CourseCard from "./courses/Course";
 
 export function Profile() {
   const [user, setUser] = useState({});
-
+  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/profile", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    })
-      .then((e) => e.json())
-      .then((e) => setUser(e));
+    let getUser = async () => {
+      fetch("http://localhost:5000/api/profile", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      })
+        .then((e) => e.json())
+        .then((e) => {
+          if (e.username) {
+            setUser(e);
+          } else {
+            navigate("/login");
+          }
+        });
+    };
+    getUser()
+    let getCourses = async () => {
+      try {
+        let res = await fetch("http://localhost:5000/api/getcourses", {
+          method: "GET",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        });
+        let result = await res.json();
+        if (!res.ok) {
+          console.log(result.message);
+          return;
+        }
+        setCourses(result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getCourses();
   }, []);
 
-  const navigations = ["account", "courses", "explore", "grades"];
   return (
     <div className="relative flex min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden">
       {/* Animated background circles */}
@@ -71,8 +98,8 @@ export function Profile() {
         <section>
           <h2 className="text-2xl font-semibold mb-6">Your Courses</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {user.courses && user.courses.length > 0 ? (
-              user.courses.map((course, index) => (
+            {courses && courses.length > 0 ? (
+              courses.map((course, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 40 }}

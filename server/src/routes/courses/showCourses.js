@@ -15,7 +15,7 @@ router.post(
     if (!secs.includes(sec))
       return next(new AppError("Not found", 404, true));
     let courses = await Course.find({ grade: sec });
-    res.status(200).json(courses);
+    res.status(200).json(courses); 
   })
 );
 

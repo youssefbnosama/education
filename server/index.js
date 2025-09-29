@@ -11,6 +11,7 @@ import form from "./src/routes/form/form.js";
 import profile from "./src/routes/profile/main.js";
 import dashboard from "./src/routes/dashboard/main.js";
 import courses from "./src/routes/courses/main.js";
+import cart from "./src/routes/cart/main.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -44,6 +45,7 @@ app.use(form);
 app.use(profile);
 app.use(dashboard);
 app.use(courses);
+app.use(cart);
 
 app.use(errorHandler);
 // Start the server

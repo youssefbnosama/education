@@ -1,21 +1,16 @@
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { Sidebar } from "../Sidebar";
-import { useParams } from "react-router-dom";
+import CourseCard from "@/routes/courses/Course";
+import { Sidebar } from "@/routes/Sidebar";
+import { fetchCourses } from "@/utilities/getCoursesFunction";
 import { useEffect, useState } from "react";
-import CourseCard from "./Course";
-import {fetchCourses} from "../../utilities/getCoursesFunction"
+import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
-export function ShowCourses() {
-  const navigate = useNavigate();
-  const [courses, setCourses] = useState([]);
+
+export function ShowCoursesToDash() {
   const [notFound, setNotFound] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [courses, setCourses] = useState([]);
   const { sec } = useParams();
-
-
-
-   useEffect(() => {
+  useEffect(() => {
     const loadCourses = async () => {
       const { res, result } = await fetchCourses(sec);
 
@@ -29,11 +24,9 @@ export function ShowCourses() {
 
     loadCourses();
   }, [sec]);
-
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col md:flex-row">
-      {<Sidebar />}
-
+        
       {/* Main Content */}
       <main className="flex-1 px-6 py-10">
         {/* Title */}
@@ -74,6 +67,7 @@ export function ShowCourses() {
                 grade={e.grade}
                 id={e._id}
                 paid={e.paid}
+                fromDash={true}
               />
             ))}
         </motion.div>
