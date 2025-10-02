@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
@@ -12,6 +13,7 @@ import profile from "./src/routes/profile/main.js";
 import dashboard from "./src/routes/dashboard/main.js";
 import courses from "./src/routes/courses/main.js";
 import cart from "./src/routes/cart/main.js";
+import weeks from "./src/routes/weeks/main.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -37,6 +39,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB:", err));
 
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 // Routes
 app.get("/", (req, res) => {
   res.sendStatus(200);
@@ -46,6 +50,7 @@ app.use(profile);
 app.use(dashboard);
 app.use(courses);
 app.use(cart);
+app.use(weeks);
 
 app.use(errorHandler);
 // Start the server

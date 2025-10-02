@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-export  function Dashboard() {
-    const navigate = useNavigate()
+export function Dashboard() {
+  const navigate = useNavigate();
   return (
     <section className="min-h-screen bg-gradient-to-br from-indigo-50 to-white py-12 px-6">
       {/* Teacher Name */}
@@ -19,10 +19,10 @@ export  function Dashboard() {
       {/* Dashboard Buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl mx-auto">
         {[
-          { label: "Add a course" , navigation:"addcourse"},
-          { label: "Delete a course" , navigation:"deletecourse"},
-          { label: "Add  a week" , navigation:"addweek/courses"},
-          { label: "modify a week" , navigation:"modifyweek"},
+          { label: "Add a course", navigation: "addcourse" },
+          { label: "Delete a course", navigation: "deletecourse" },
+          { label: "Add  a week", navigation: "addweek/courses" },
+          { label: "Add content", navigation: "addcontent/courses" },
         ].map((item, index) => (
           <motion.div
             key={index}
@@ -31,7 +31,12 @@ export  function Dashboard() {
             transition={{ delay: index * 0.2, duration: 0.4 }}
             whileHover={{ scale: 1.05 }}
           >
-            <Button onClick={()=>{navigate(item.navigation)}} className="w-full py-6 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl shadow-lg">
+            <Button
+              onClick={() => {
+                navigate(item.navigation);
+              }}
+              className="w-full py-6 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl shadow-lg"
+            >
               {item.label}
             </Button>
           </motion.div>

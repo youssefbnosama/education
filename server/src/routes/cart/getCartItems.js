@@ -11,6 +11,7 @@ router.get(
   authMiddleware,
   tryCatch(async (req, res, next) => {
     let array = await Order.find({ userId: req.user.id,status:"Pending" }).populate("courseId");
+    console.log(array)
     res.json({ courses: array.map((e)=> e.courseId)});
   })
 );

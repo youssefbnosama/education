@@ -18,8 +18,15 @@ const contentSchema = new mongoose.Schema(
       },
     },
     quiz: {
-      type: [String],
+      type: Array,
       default: [],
+    },
+    quizLength: {
+      type: Number,
+      required: function () {
+        return this.type === "quiz";
+      },
+      default: 0,
     },
   },
   { timestamps: true }

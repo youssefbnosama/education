@@ -3,7 +3,7 @@ import Content from "./Content.js";
 
 const weekSchema = new mongoose.Schema(
   {
-    courseId: {
+    courseid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course", 
       required: true,

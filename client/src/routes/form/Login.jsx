@@ -8,12 +8,12 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "../components/ui/card";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
-import { validateEmail, validatePassword } from "./validation/FormValidation";
+import { validateEmail, validatePassword } from "../../utilities/validation/FormValidation";
 
 export function Login() {
   const theErrorState = { email: "", password: "" };

@@ -25,6 +25,7 @@ export default function CourseCard({
       navigate("/cart");
     }
   };
+
   return (
     <Card className="w-full max-w-sm shadow-md rounded-2xl overflow-hidden">
       {/* الصورة */}
@@ -47,15 +48,15 @@ export default function CourseCard({
         <div className="flex items-center justify-between">
           <Button
             onClick={() => {
-              if(fromDash){
+              if(fromDash || paid){
                 navigate(id)
               }else{
-                paid? "" : addToCart(id)
+                addToCart(id)
               }
             }}
             className="rounded-xl"
           >
-            {fromDash? "Add a week": paid? "Enter" : "Add to cart"}
+            {fromDash? "Enter": paid? "Enter" : "Add to cart"}
           </Button>
           <span className="text-lg font-semibold">${price}</span>
         </div>

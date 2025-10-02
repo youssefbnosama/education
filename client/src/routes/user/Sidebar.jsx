@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function Sidebar() {
   const navigate = useNavigate();
-  const navigations = ["profile","account", "courses", "explore", "grades","cart","payments"];
+  const navigations = ["profile","account", "courses", "grades","cart","cart/payments"];
 
   return (
     <motion.aside
@@ -19,7 +19,7 @@ export function Sidebar() {
         </CardHeader>
         <CardContent>
           <ul className="space-y-4 text-lg">
-            {["Profile","Your Account", "Courses", "Explore", "Grades","Cart","Payments"].map(
+            {["Profile","Your Account", "Courses", "Grades","Cart","Payments"].map(
               (item, idx) => (
                 <motion.li
                   key={idx}

@@ -1,10 +1,9 @@
 import CourseCard from "@/routes/courses/Course";
-import { Sidebar } from "@/routes/Sidebar";
+import { Sidebar } from "@/routes/user/Sidebar";
 import { fetchCourses } from "@/utilities/getCoursesFunction";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-
 
 export function ShowCoursesToDash() {
   const [notFound, setNotFound] = useState(false);
@@ -26,7 +25,6 @@ export function ShowCoursesToDash() {
   }, [sec]);
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col md:flex-row">
-        
       {/* Main Content */}
       <main className="flex-1 px-6 py-10">
         {/* Title */}

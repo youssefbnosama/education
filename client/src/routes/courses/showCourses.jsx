@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Sidebar } from "../Sidebar";
+import { Sidebar } from "../user/Sidebar";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CourseCard from "./Course";
-import {fetchCourses} from "../../utilities/getCoursesFunction"
+import { fetchCourses } from "../../utilities/getCoursesFunction";
 
 export function ShowCourses() {
   const navigate = useNavigate();
@@ -13,9 +13,7 @@ export function ShowCourses() {
   const [userId, setUserId] = useState("");
   const { sec } = useParams();
 
-
-
-   useEffect(() => {
+  useEffect(() => {
     const loadCourses = async () => {
       const { res, result } = await fetchCourses(sec);
 

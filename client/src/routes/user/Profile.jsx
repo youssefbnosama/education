@@ -4,8 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Sidebar } from "./Sidebar";
-import CourseCard from "./courses/Course";
+import { Sidebar } from "../user/Sidebar";
 
 export function Profile() {
   const [user, setUser] = useState({});
@@ -126,7 +125,7 @@ export function Profile() {
                         Grade: {course.grade}
                       </span>
                       <div>
-                        <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                        <Button onClick={()=>{navigate(`/courses/${course.grade}/${course._id}`)}} className="bg-indigo-600 hover:bg-indigo-700 text-white">
                           Enter
                         </Button>
                       </div>

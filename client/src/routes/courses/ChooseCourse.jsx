@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sidebar } from "../Sidebar";
 import { useNavigate } from "react-router-dom";
 
 export function ChooseCourse() {
   let src =
     "https://www.bostonind.com/image/cache/catalog/1%20-%20Blog/Atoms%20and%20Elements%20The%20Building%20Blocks%20of%20Matter-1600x1200w.png.webp";
   let arr = ["sec-1", "sec-2", "sec-3"];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="relative min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-8">
       {/* Animated background circles */}
@@ -36,7 +35,7 @@ export function ChooseCourse() {
           <Card
             key={index}
             className="p-6 flex flex-col items-center justify-center text-center shadow-lg rounded-2xl hover:shadow-xl transition"
-            onClick={()=> navigate(e)}
+            onClick={() => navigate(e)}
           >
             <CardContent className="flex flex-col items-center">
               {/* صورة خاصة بالكارد */}

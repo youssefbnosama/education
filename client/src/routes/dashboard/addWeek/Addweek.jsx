@@ -4,26 +4,43 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { getWeekNumber } from "@/utilities/dashboard/weeks/getWeekNumber";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
-export default function WeekForm() {
+export function AddWeek() {
   const [weekNumber, setWeekNumber] = useState("");
   const [title, setTitle] = useState("");
-  const {courseid} = useParams()
+  const { courseid } = useParams();
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    let data = { courseid, priority: +weekNumber, title };
+    let res = await fetch(
+      `http://localhost:5000/api/dashboard/addweek/${courseid}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        credentials: "include",
+      }
+    );
+    let result = await res.json();
+    if (!res.ok) {
+      console.log(result.message);
+      return;
+    }
+    navigate("/dashboard")
   };
 
   useEffect(() => {
     const loadCourses = async () => {
       const { res, result } = await getWeekNumber(courseid);
-
       if (!res.ok) {
+        console.log(result);
         return;
       }
 
-      setWeekNumber(result);
+      setWeekNumber(result.num);
     };
 
     loadCourses();
