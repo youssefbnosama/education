@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../user/Sidebar";
+import { fetchFunction } from "@/utilities/fetchFunction";
 
 export function Profile() {
   const [user, setUser] = useState({});
@@ -12,42 +13,27 @@ export function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let getUser = async () => {
-      fetch("http://localhost:5000/api/profile", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      })
-        .then((e) => e.json())
-        .then((e) => {
-          if (e.username) {
-            setUser(e);
-          } else {
-            navigate("/login");
-          }
-        });
-    };
-    getUser()
-    let getCourses = async () => {
+    let loading = async () => {
       try {
-        let res = await fetch("http://localhost:5000/api/getcourses", {
-          method: "GET",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-        });
-        let result = await res.json();
-        if (!res.ok) {
-          console.log(result.message);
-          return;
-        }
-        setCourses(result);
+        const { res: profileRes, result: profileResult } = await fetchFunction(
+          "/api/profile",
+          "GET",
+          true
+        );
+        // if(profileResult.navigateToLogin) navigate("/login")
+        profileRes.ok ? setUser(profileResult) : navigate("/login");
+        const { res: coursesRes, result: coursesResult } = await fetchFunction(
+          "/api/getcourses",
+          "GET",
+          true
+        );
+        if (coursesRes.ok) setCourses(coursesResult);
       } catch (err) {
         console.log(err);
       }
     };
-    getCourses();
+    loading();
   }, []);
-
   return (
     <div className="relative flex min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden">
       {/* Animated background circles */}
@@ -125,7 +111,12 @@ export function Profile() {
                         Grade: {course.grade}
                       </span>
                       <div>
-                        <Button onClick={()=>{navigate(`/courses/${course.grade}/${course._id}`)}} className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                        <Button
+                          onClick={() => {
+                            navigate(`/courses/${course.grade}/${course._id}`);
+                          }}
+                          className="bg-indigo-600 hover:bg-indigo-700 text-white"
+                        >
                           Enter
                         </Button>
                       </div>

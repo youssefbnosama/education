@@ -14,7 +14,9 @@ import { ShowCoursesToDash } from "./routes/dashboard/addWeek/showCourses";
 import { AddWeek } from "./routes/dashboard/addWeek/Addweek";
 import { Week } from "./routes/weeks/Week";
 import { AddContent } from "./routes/dashboard/addContent/AddContent";
-
+import { QuestionsPage } from "./routes/quizs/QuestionPage";
+import { Grades } from "./routes/grades/Grades";
+import { QuizResultPage } from "./routes/grades/QuizReveal";
 
 function App() {
   return (
@@ -52,13 +54,26 @@ function App() {
           path="/dashboard/addweek/courses/:sec/:courseid"
           element={<AddWeek />}
         />
-        <Route path="/dashboard/addcontent/courses/:sec/:courseid/"   element={<Week fromDash={true} />} />
-        <Route path="/dashboard/addcontent/courses/:sec/:courseid/:weekid"   element={<AddContent />} />
+        <Route
+          path="/dashboard/addcontent/courses/:sec/:courseid/"
+          element={<Week fromDash={true} />}
+        />
+        <Route
+          path="/dashboard/addcontent/courses/:sec/:courseid/:weekid"
+          element={<AddContent />}
+        />
 
         {/* Cart routes */}
         <Route path="/cart" element={<CartPage />} />
         <Route path="/cart/payments" element={<Payments />} />
 
+        <Route
+          path="/weeks/:weekid/openquiz/:quizid"
+          element={<QuestionsPage />}
+        />
+        {/*Grades*/}
+        <Route path="/grades" element={<Grades />} />
+        <Route path="/grades/:gradeid" element={<QuizResultPage />} />
       </Routes>
     </Router>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useAnimate } from "framer-motion";
+import { motion, AnimatePresence, useAnimate, time } from "framer-motion";
 import { getWeeksFetch } from "@/utilities/dashboard/weeks/content/getWeeksFetch";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -49,18 +49,19 @@ export function Week({ fromDash }) {
         console.log(result.message);
         return;
       }
-      console.log(result);
       setWeeks(result);
     };
 
     loadCourses();
   }, [courseid]);
 
-  const handleContentClick = (item) => {
+  const handleContentClick = (item, weekId) => {
     if (item.type === "video" || item.type === "pdf") {
       window.open(item.url, "_blank");
     } else if (item.type === "quiz") {
-      console.log("Quiz clicked:", item.title); // placeholder for quiz logic
+      navigate(
+        `/weeks/${weekId}/openquiz/${item._id}`
+      ); // placeholder for quiz logic
     }
   };
 
@@ -103,7 +104,7 @@ export function Week({ fromDash }) {
                     <div
                       key={i}
                       className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-100"
-                      onClick={() => handleContentClick(item)}
+                      onClick={() => handleContentClick(item, week._id)}
                     >
                       <span>{item.title}</span>
                       <span>{getEmoji(item.type)}</span>

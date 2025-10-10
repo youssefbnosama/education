@@ -72,6 +72,7 @@ export function ShowCourses() {
                 grade={e.grade}
                 id={e._id}
                 paid={e.paid}
+                fromDash={false}
               />
             ))}
         </motion.div>
